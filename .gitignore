@@ -132,3 +132,7 @@ dmypy.json
 *.aux
 *.synctex.gz
 *.out
+*.bbl
+*.bcf
+*.blg
+*.run.xml

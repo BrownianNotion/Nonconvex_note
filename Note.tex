@@ -7,6 +7,9 @@
 \usepackage{comment}
 \usepackage{xcolor}
 \usepackage{amsfonts}
+\usepackage{biblatex}
+\addbibresource{Note.bib}
+
 
 \newtheorem{definition}{Definition}
 \newtheorem{theorem}{Theorem}
@@ -103,7 +106,6 @@
 	
 	\begin{proof}
 		%Example 2.1, pg 28, Bauschke
-		%\begin{comment}
 		Let $x = (x_1, \ldots x_n)$ and $y = (y_1, \ldots y_n)$ be elements of $X$. Observe that $X$ equipped with the inner product 
 		
 		\[	\langle x, y\rangle := \sum_{i=1}^{n} \langle x_{i}, y_{i}\rangle_{i}
@@ -128,6 +130,7 @@
 			\[	g^{**}(x) = \sum_{i=1}^{n} g_{i}^{**}(x_i),
 			\]
 			where again, $g^{**}_{i}$ are proper by \autoref{lem:proper_affine}. Finally, if $g_{i}$, $i=1,2\ldots n$ have continuous affine minorants $\langle a_{i}, x\rangle + b_{i}$, then $\langle \sum_{i=1}^{n}a_i, x_i\rangle + \sum_{i=1}^{n} b_{i}$ is a continuous affine minorant of the proper function $g$, so $g^{**}$ is proper by \autoref{lem:proper_affine}.
+		\end{proof}
 			\newpage
 			\textbf{Notes:}
 			\begin{enumerate}
@@ -135,8 +138,7 @@
 				
 				\item We allow $\sup = +\infty$ since we are dealing with functions on the extended reals. This also means we do not need to worry about the sets $\{\langle x_i^{*}, x_i\rangle - g_{i}(x_i)\}$ being bounded above, hence additivity of the $\sup$ should always hold.  
 				\end{enumerate}
-			%\end{comment}
-			
-			
-		\end{proof}
+		
+	
+		\printbibliography
 \end{document}

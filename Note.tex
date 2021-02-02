@@ -1,0 +1,142 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{mathrsfs}
+\usepackage[colorlinks = true]{hyperref}
+\usepackage{comment}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
+\newtheorem{example}{Example}
+\newtheorem{corollary}{Corollary}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\conv}{conv}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Prob}[1]{\mathscr{P}_{#1}}
+%opening
+\title{Non convex optimisation convex envelopes and Fenchel Conjugates}
+\author{Andrew Wu}
+
+\begin{document}
+	
+	\maketitle
+	
+	\begin{comment}
+	\section{Problem}
+	Let $X,Y$ be Hilbert spaces and suppose $f:X\times Y\to\R$ is a smooth convex function and  $g:X\times Y\to\R$ is non-convex. We want to solve the following problem, denoted by $\Prob{0}$
+	\begin{equation*}
+		\inf_{x,y\in X\times Y} f(x,y)
+		\end{equation*}
+	subject to the constraint 
+	\[	g(x,y) \geq 0.
+		\]
+	\end{comment}
+	\section{Convex Envelopes}
+	\begin{definition}
+		Let $V$ be a vector space. The functional $g:V\to\R$ is affine if there exists linear functional $l:V\to\R$ and $b\in V$ such that for all $v\in V$, 
+		\[  g(v) = l(v) + b
+		\]
+	\end{definition}
+	%Proposition of Tardella generalised to arbitrary vector spaces.
+	\begin{proposition}
+		\label{prop:conv}
+		Let $V$ be a vector space. Suppose $f,g:V\to\R$ are arbitrary functionals. Then, 
+		\[  \conv(f) + \conv(g)\leq \conv(f+g).
+		\]
+		If $g$ is affine, then 
+		\[  \conv(f) + \conv(g) = \conv(f + g)
+		\]
+	\end{proposition}
+	
+	\begin{proof}
+		Observe that $\conv(f) + \conv(g)$ is a convex underestimator of $f + g$. Hence, by definition,
+		\[  \conv(f) + \conv(g)\leq \conv(f+g).
+		\]
+		Suppose $g$ is affine, then both $g$ and $-g$ are convex. Thus, $\conv(g) = g$ and $\conv(-g)=g$. Hence,
+		\[	\conv(f + g) - g = \conv(f+g) + \conv(-g) \leq \conv(f),
+				\]
+		so 
+		\[	\conv(f) + \conv(g) \geq \conv(f + g).
+				\]
+		Combining this with the first part of the proposition yields the desired equality.
+		\end{proof}
+	
+	\noindent \textcolor{red}{\textbf{Note:}} Ensure $V$ is a vector space, not a subset of a vector space when applying \textcolor{red}{proposition }\autoref{prop:conv}. This ensures $V$ is a convex set, otherwise the domain of $f$ needs to be extended to the convex hull of the set.
+	\section{Separable Additivity of Biconjugates}
+	
+	\begin{definition}
+		Let $X$ be some space. The function $f:X\to[-\infty, \infty]$ is proper if $f(x)\neq -\infty$ for all $x\in X$ and there exists $x\in X$ such that $f(x) < +\infty$.
+		\end{definition}
+	\begin{definition}
+		Let $(X,\langle, \rangle)$ be a real Hilbert space. The functional $f:X\to[-\infty,\infty]$ has a continuous affine minorant if there exists $a\in X$ and $b\in\R$ such that for all $x\in X$:
+		
+		\[	f(x)\geq \langle a, x \rangle + b
+				\]
+		\end{definition}
+	
+	\begin{lemma}
+		\label{lem:proper_affine}
+		Let $(X,\langle, \rangle)$ be a real Hilbert space and suppose $f:X\to[-\infty, \infty]$ is proper and has a continuous affine minorant. Then, both $f^{*}, f^{**}:X\to[-\infty, \infty]$ are also proper and have affine minorants.
+		\end{lemma}
+	
+		\noindent page 6 - \url{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.23.1198&rep=rep1&type=pdf}
+	
+	\begin{theorem}
+		Let $X_{1}, X_{2}, \ldots X_{n}$ be real Hilbert spaces with inner products $\langle ,\rangle_{i=1,2\ldots n}$ respectively and $X = X_{1}\times X_{2}\times \ldots X_{n}$.
+		Suppose $g:X\to(-\infty,\infty]$ is a proper separable function defined by
+		
+		\[	g(x) = \sum_{i=1}^{n}g_{i}(x_i), \quad\text{for any }x=(x_1, x_2, \ldots, x_n)\in X,
+		\]
+		where  $g:X:=$ $g_{i}:X_{i}\to(-\infty, \infty]$, $i=1,2,\ldots n$ are proper functions with continuous affine minorants. Then, $g^{**}$ is proper and for all $x\in X$,
+		\[	g^{**}(x) = \sum_{i=1}^{n} g_{i}^{**}(x_i),
+		\]
+		where $g^{**}_{i}$ are proper functions.
+		\end{theorem}
+		
+	
+	\begin{proof}
+		%Example 2.1, pg 28, Bauschke
+		%\begin{comment}
+		Let $x = (x_1, \ldots x_n)$ and $y = (y_1, \ldots y_n)$ be elements of $X$. Observe that $X$ equipped with the inner product 
+		
+		\[	\langle x, y\rangle := \sum_{i=1}^{n} \langle x_{i}, y_{i}\rangle_{i}
+				\]
+				
+		\noindent defines a Hilbert space. 	Computing the Fenchel conjugate, we obtain:
+		\begin{align*}
+			g^{*}(x^{*}) 
+			& = \sup_{x\in X}\left\{ 
+									\langle x^*, x\rangle - g(x)
+												\right\} \\
+				%Note; here we allow supremum to take +\infty
+			& = \sup_{x_1,x_2\ldots x_n} \left\{
+										\sum_{i=1}^{n} \langle x^{*}_{i}, x_i\rangle - g_{i}(x_i)
+												\right\}	\\
+				%https://math.stackexchange.com/questions/2814076/can-you-explain-the-intuition-of-tom-apostols-proof-of-the-additive-property-of
+			& = \sum_{i=1}^{n}	\sup_{x_i\in X_i} \left\{\langle x^{*}_{i}, x_i\rangle - g_{i}(x_i)\right\} \\
+			& = \sum_{i=1}^{n} g_{i}^{*}(x_i)					
+			\end{align*}
+			
+			\noindent Observe that $g^{*}$ is separable and $g_{i}^{*}:X_{i}\to[-\infty, \infty]$ are proper with continuous affine minorants by \autoref{lem:proper_affine}. Thus, reapplying the above line of reasoning yields 
+			\[	g^{**}(x) = \sum_{i=1}^{n} g_{i}^{**}(x_i),
+			\]
+			where again, $g^{**}_{i}$ are proper by \autoref{lem:proper_affine}. Finally, if $g_{i}$, $i=1,2\ldots n$ have continuous affine minorants $\langle a_{i}, x\rangle + b_{i}$, then $\langle \sum_{i=1}^{n}a_i, x_i\rangle + \sum_{i=1}^{n} b_{i}$ is a continuous affine minorant of the proper function $g$, so $g^{**}$ is proper by \autoref{lem:proper_affine}.
+			\newpage
+			\textbf{Notes:}
+			\begin{enumerate}
+				\item Proof of separability of $g^{*}$ is adapted from \textcolor{red}{Proposition 13.30} of Bauschke ``Convex analysis and monotone operator theory in Hilbert Spaces.''
+				
+				\item We allow $\sup = +\infty$ since we are dealing with functions on the extended reals. This also means we do not need to worry about the sets $\{\langle x_i^{*}, x_i\rangle - g_{i}(x_i)\}$ being bounded above, hence additivity of the $\sup$ should always hold.  
+				\end{enumerate}
+			%\end{comment}
+			
+			
+		\end{proof}
+\end{document}

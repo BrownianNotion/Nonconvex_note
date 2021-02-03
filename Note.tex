@@ -3,11 +3,13 @@
 \usepackage{amsmath}
 \usepackage{amsthm}
 \usepackage{mathrsfs}
-\usepackage[colorlinks = true]{hyperref}
+\usepackage[colorlinks = true, citecolor=red]{hyperref}
 \usepackage{comment}
 \usepackage{xcolor}
 \usepackage{amsfonts}
-\usepackage{biblatex}
+\usepackage[
+citestyle = authoryear
+]{biblatex}
 \addbibresource{Note.bib}
 
 
@@ -17,6 +19,7 @@
 \newtheorem{corollary}{Corollary}
 \newtheorem{proposition}{Proposition}
 \newtheorem{lemma}{Lemma}
+\newcommand{\lemmaautorefname}{Lemma}
 
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\conv}{conv}
@@ -24,12 +27,15 @@
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\Prob}[1]{\mathscr{P}_{#1}}
 %opening
-\title{Non convex optimisation convex envelopes and Fenchel Conjugates}
+\title{Non-convex optimisation convex envelopes and Fenchel Conjugates}
 \author{Andrew Wu}
 
 \begin{document}
 	
 	\maketitle
+	
+	\section{Introduction}
+	This note aims to extend propositions from \cite{Bauschke2010} and \cite{Tardella} to a class of optimization problems on Hilbert spaces with non-convex constraints.
 	
 	\begin{comment}
 	\section{Problem}
@@ -48,7 +54,9 @@
 		\]
 	\end{definition}
 	%Proposition of Tardella generalised to arbitrary vector spaces.
-	\begin{proposition}
+	\noindent The following proposition extends \textbf{Proposition 2.20} of \cite{Tardella} from convex subsets of $\R^{n}$ to general vector spaces.
+	
+	\begin{theorem}
 		\label{prop:conv}
 		Let $V$ be a vector space. Suppose $f,g:V\to\R$ are arbitrary functionals. Then, 
 		\[  \conv(f) + \conv(g)\leq \conv(f+g).
@@ -56,7 +64,7 @@
 		If $g$ is affine, then 
 		\[  \conv(f) + \conv(g) = \conv(f + g)
 		\]
-	\end{proposition}
+	\end{theorem}
 	
 	\begin{proof}
 		Observe that $\conv(f) + \conv(g)$ is a convex underestimator of $f + g$. Hence, by definition,
@@ -71,7 +79,7 @@
 		Combining this with the first part of the proposition yields the desired equality.
 		\end{proof}
 	
-	\noindent \textcolor{red}{\textbf{Note:}} Ensure $V$ is a vector space, not a subset of a vector space when applying \textcolor{red}{proposition }\autoref{prop:conv}. This ensures $V$ is a convex set, otherwise the domain of $f$ needs to be extended to the convex hull of the set.
+	%\noindent \textcolor{red}{\textbf{Note:}} The condition that $V$ is a vector space guarantees $V$ is convex. 
 	\section{Separable Additivity of Biconjugates}
 	
 	\begin{definition}
@@ -89,7 +97,11 @@
 		Let $(X,\langle, \rangle)$ be a real Hilbert space and suppose $f:X\to[-\infty, \infty]$ is proper and has a continuous affine minorant. Then, both $f^{*}, f^{**}:X\to[-\infty, \infty]$ are also proper and have affine minorants.
 		\end{lemma}
 	
-		\noindent page 6 - \url{https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.23.1198&rep=rep1&type=pdf}
+		\begin{proof}
+			See \cite{Klein}
+			\end{proof}
+	
+	\noindent The following theorem is essentially a double application of \textbf{Proposition 13.30} of \cite{Bauschke2010} where extra conditions are imposed to guarantee $g^{**}$ is proper. As with \cite{Bauschke2010}, we allow $\sup\{\cdot\}$ to take values $\pm\infty$.
 	
 	\begin{theorem}
 		Let $X_{1}, X_{2}, \ldots X_{n}$ be real Hilbert spaces with inner products $\langle ,\rangle_{i=1,2\ldots n}$ respectively and $X = X_{1}\times X_{2}\times \ldots X_{n}$.
@@ -103,6 +115,14 @@
 		where $g^{**}_{i}$ are proper functions.
 		\end{theorem}
 		
+		\begin{comment}
+		\textbf{Notes:}
+		\begin{enumerate}
+		\item Proof of separability of $g^{*}$ is adapted from \textcolor{red}{Proposition 13.30} of Bauschke ``Convex analysis and monotone operator theory in Hilbert Spaces.''
+		
+		\item We allow $\sup = +\infty$ since we are dealing with functions on the extended reals. This also means we do not need to worry about the sets $\{\langle x_i^{*}, x_i\rangle - g_{i}(x_i)\}$ being bounded above, hence additivity of the $\sup$ should always hold.  
+		\end{enumerate}
+		\end{comment}
 	
 	\begin{proof}
 		%Example 2.1, pg 28, Bauschke
@@ -131,14 +151,6 @@
 			\]
 			where again, $g^{**}_{i}$ are proper by \autoref{lem:proper_affine}. Finally, if $g_{i}$, $i=1,2\ldots n$ have continuous affine minorants $\langle a_{i}, x\rangle + b_{i}$, then $\langle \sum_{i=1}^{n}a_i, x_i\rangle + \sum_{i=1}^{n} b_{i}$ is a continuous affine minorant of the proper function $g$, so $g^{**}$ is proper by \autoref{lem:proper_affine}.
 		\end{proof}
-			\newpage
-			\textbf{Notes:}
-			\begin{enumerate}
-				\item Proof of separability of $g^{*}$ is adapted from \textcolor{red}{Proposition 13.30} of Bauschke ``Convex analysis and monotone operator theory in Hilbert Spaces.''
-				
-				\item We allow $\sup = +\infty$ since we are dealing with functions on the extended reals. This also means we do not need to worry about the sets $\{\langle x_i^{*}, x_i\rangle - g_{i}(x_i)\}$ being bounded above, hence additivity of the $\sup$ should always hold.  
-				\end{enumerate}
-		
-	
+		%\newpage
 		\printbibliography
 \end{document}

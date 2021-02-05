@@ -47,11 +47,12 @@ citestyle = authoryear
 	\[	g(x,y) \geq 0.
 		\]
 	\end{comment}
-	\section{Convex Envelopes}
+	\section{Superadditivity of convex envelopes}
 	\begin{definition}
 		Let $V$ be a vector space. The functional $g:V\to\R$ is affine if there exists linear functional $l:V\to\R$ and $b\in V$ such that for all $v\in V$, 
 		\[  g(v) = l(v) + b
 		\]
+		If $l$ is a continuous linear functional, then $g$ is a continuous affine functional.
 	\end{definition}
 	%Proposition of Tardella generalised to arbitrary vector spaces.
 	\noindent The following proposition extends \textbf{Proposition 2.20} of \cite{Tardella} from convex subsets of $\R^{n}$ to general vector spaces.
@@ -65,6 +66,7 @@ citestyle = authoryear
 		\[  \conv(f) + \conv(g) = \conv(f + g)
 		\]
 	\end{theorem}
+	
 	
 	\begin{proof}
 		Observe that $\conv(f) + \conv(g)$ is a convex underestimator of $f + g$. Hence, by definition,
@@ -80,6 +82,53 @@ citestyle = authoryear
 		\end{proof}
 	
 	%\noindent \textcolor{red}{\textbf{Note:}} The condition that $V$ is a vector space guarantees $V$ is convex. 
+	
+	\section{Superadditivity of Biconjugates}
+	A similar proposition can be proved for biconjugates. 
+	\begin{definition}
+		Let $H$ be a Hilbert Space and $f:H\to[-\infty, \infty]$. The Fenchel conjugate (or convex conjugate or Legendre Transform) is the function $f^{*}:H\to[-\infty, \infty]$
+		
+		\[	f^{*}(x^*) = \sup_{x\in X} \left\{		\langle x^{*}, x\rangle - f(x)
+													\right\}
+				\]
+		
+		\noindent The biconjugate of $f$ is the function $f^{**} := (f^*)^*$.
+		\end{definition}
+	
+	\begin{lemma}
+		\label{lem:biconjugatelsc}
+		Let $H$ be a Hilbert space and $f:H\to[-\infty, \infty]$. Then, $f^{**}$ is the largest convex lower semicontinuous minorant of $f$. That is, for any convex lower semicontinuous function $g$ such that $g\leq f$, $g\leq f^{**}$.
+		\end{lemma}
+	
+	\begin{proof}
+		See \textbf{Proposition 4.1} of \cite{Ekeland}.
+		\end{proof}
+	
+	\begin{theorem}
+		Let $H$ be a Hilbert space and $f,g:H\to\R$ be arbitrary functionals. Then, 
+		
+		\[	f^{**} + g^{**} \leq (f+g)^{**}.
+		\]
+		
+		\noindent In particular, if $g$ is affine continuous, then 
+		
+		\[	f^{**} + g^{**} = (f+g)^{**}
+		\]
+	\end{theorem}
+	
+	\begin{proof}
+		By \autoref{lem:biconjugatelsc}, $f^{**}, g^{**}$ are convex and lower semicontinuous and $f\leq f^{**}$, $g\leq g^{**}$. Observe that $f^{**} + g^{**}$ is a convex minorant of $f + g$, and is also lower semicontinuous by the superadditivity of the infimum. Hence, by definition, 
+		\[	f^{**} + g^{**} \leq (f+g)^{**}.
+				\]
+		Now, if $g$ is affine and continuous, both $g$ and $-g$ are convex and lower semicontinuous. Hence, by \autoref{lem:biconjugatelsc}, $g^{**} = g$ and $(-g)^{**} = -g$, so
+		\[	(f+g)^{**} - g = (f+g)^{**} + (-g)^{**}\leq f^{**},
+				\]
+		which rearranges to 
+		\[	(f + g)^{**} \leq f^{**} + g^{**}.
+				\]
+		Combining this with the first inequality in the theorem yields the equality.
+	\end{proof}
+	
 	\section{Separable Additivity of Biconjugates}
 	
 	\begin{definition}
@@ -98,10 +147,11 @@ citestyle = authoryear
 		\end{lemma}
 	
 		\begin{proof}
-			See \cite{Klein}
+			See \textbf{Lemma 2.1} of \cite{Klein}
 			\end{proof}
 	
 	\noindent The following theorem is essentially a double application of \textbf{Proposition 13.30} of \cite{Bauschke2010} where extra conditions are imposed to guarantee $g^{**}$ is proper. The proof follows that of \textbf{Theorem 2.1} in \cite{Klein} albeit with a modified definition of proper function to match \cite{Bauschke2010}. As with \cite{Bauschke2010}, we allow $\sup\{\cdot\}$ to take values $\pm\infty$. 
+	
 	
 	\begin{theorem}
 		Let $X_{1}, X_{2}, \ldots X_{n}$ be real Hilbert spaces with inner products $\langle ,\rangle_{i=1,2\ldots n}$ respectively and $X = X_{1}\times X_{2}\times \ldots X_{n}$.

@@ -2,6 +2,7 @@
 \usepackage[margin=1.0in]{geometry}
 \usepackage{amsmath}
 \usepackage{amsthm}
+\usepackage{bm}
 \usepackage{mathrsfs}
 \usepackage[colorlinks = true, citecolor=red]{hyperref}
 \usepackage{comment}
@@ -21,6 +22,8 @@ citestyle = authoryear
 \newtheorem{lemma}{Lemma}
 \newcommand{\lemmaautorefname}{Lemma}
 
+\DeclareMathOperator*{\argmax}{arg\,max}
+\newcommand\inner[2]{\langle #1, #2 \rangle}
 \DeclareMathOperator*{\argmin}{arg\,min}
 \DeclareMathOperator*{\conv}{conv}
 
@@ -206,4 +209,24 @@ citestyle = authoryear
 		\end{proof}
 		%\newpage
 		\printbibliography
+		\begin{lemma}
+			 Suppose $X_i$, $i=1,2\ldots n$ is a family of real Hilbert spaces with inner products $\inner{\cdot}{\cdot}_i$ and denote the product Hilbert space by $\bm{X}=\bigoplus_{i=1}^{n}X_i$ (that is $\prod_{i=1}^{n}X_i$ with inner product $\sum_{i=1}^{n}\inner{\cdot}{\cdot}_i$). Let $f:\bm{X}\to\R$ be an additively separable function;
+			\[  f(\bm{x}) = \sum_{i=1}^{n}f_{i}(x_i),
+			\]
+			where $f_i:X_i\to\R$. Let $\bm{x}=(x_1, \ldots x_n)\in\text{dom }f$. As with \cite{Bauschke2010}, we define $R_i:X_i\to \bm{X}$ such that the j$^{\text{th}}$ component of $R_i y$ is $y$ if $j=i$ and $x_j$ otherwise. Then, if $u_i\in\partial_i f(\bm{x})$ for $i=1,2,\ldots n$, then $\bm{u}=(u_1, \ldots, u_n)\in\partial f(\bm{x})$.
+			\end{lemma}
+		 \begin{proof}
+			By definition, for all $i=1,2,\ldots n$ and $y_i\in X_i$,
+			\begin{align*}
+				& \inner{y_i - x_i}{u_i} + (f\circ R_i)(x_i)\leq (f\circ R_i)(y_i)\\
+				& \inner{y_i - x_i}{u_i} + \sum_{j=1}^{n}f(x_j) \leq f(y_i) + \sum_{j\neq i}^{n}f(x_j) \\
+				& \inner{y_i - x_i}{u_i} + f(x_i) \leq f(y_i).
+			\end{align*}
+			Adding these inequalities together, we have that for all $\bm{y}\in\bm{X}$, 
+			\begin{align*}
+				& \sum_{i=1}^{n}\inner{y_i - x_i}{u_i} + \sum_{i=1}^{n}f(x_i) \leq \sum_{i=1}^{n}f(y_i) \\
+				& \inner{\bm{y} - \bm{x}}{\bm{u}} + f(\bm{x}) \leq f(\bm{y}),
+			\end{align*}
+			thus, $\bm{u}\in \partial f(\bm{x})$.
+		\end{proof}
 \end{document}

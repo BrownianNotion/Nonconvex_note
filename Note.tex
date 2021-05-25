@@ -219,13 +219,13 @@ citestyle = authoryear
 		 \begin{proof}
 			By definition, for all $i=1,2,\ldots n$ and $y_i\in X_i$,
 			\begin{align*}
-				& \inner{y_i - x_i}{u_i} + (f\circ R_i)(x_i)\leq (f\circ R_i)(y_i)\\
-				& \inner{y_i - x_i}{u_i} + \sum_{j=1}^{n}f(x_j) \leq f(y_i) + \sum_{j\neq i}^{n}f(x_j) \\
-				& \inner{y_i - x_i}{u_i} + f(x_i) \leq f(y_i).
+				& \inner{y_i - x_i}{u_i}_i + (f\circ R_i)(x_i)\leq (f\circ R_i)(y_i)\\
+				& \inner{y_i - x_i}{u_i}_i + \sum_{j=1}^{n}f(x_j) \leq f(y_i) + \sum_{j\neq i}^{n}f(x_j) \\
+				& \inner{y_i - x_i}{u_i}_i + f(x_i) \leq f(y_i).
 			\end{align*}
 			Adding these inequalities together, we have that for all $\bm{y}\in\bm{X}$, 
 			\begin{align*}
-				& \sum_{i=1}^{n}\inner{y_i - x_i}{u_i} + \sum_{i=1}^{n}f(x_i) \leq \sum_{i=1}^{n}f(y_i) \\
+				& \sum_{i=1}^{n}\inner{y_i - x_i}{u_i}_i + \sum_{i=1}^{n}f(x_i) \leq \sum_{i=1}^{n}f(y_i) \\
 				& \inner{\bm{y} - \bm{x}}{\bm{u}} + f(\bm{x}) \leq f(\bm{y}),
 			\end{align*}
 			thus, $\bm{u}\in \partial f(\bm{x})$.
